@@ -21,7 +21,7 @@ GameScene::GameScene(){
     
     bgm.loadSound("stage1/Mixdown.mp3");
     bgm.play();
-    
+    rail = Rail(1);
 }
 
 
@@ -80,8 +80,10 @@ void GameScene::draw(){
     {
         roombas[i].draw();
     }
+    rail.draw();
     
     scores.drawString(ofToString(score), 400, 80);
+    ofCircle(rail.getPosition(ofGetElapsedTimeMillis(), 1), 10);
 }
 
 

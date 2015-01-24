@@ -45,6 +45,7 @@ public:
     string scoretime;
     ofTrueTypeFont scores;
 
+    Rail rail;
 };
 
 #endif /* defined(__gomirhythm__Game__) */
