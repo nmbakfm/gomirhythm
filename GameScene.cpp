@@ -18,12 +18,7 @@ GameScene::GameScene(){
     // getPosition で座標を取得する。
     rail = Rail(1);
     ofPoint roombaInitialPos = rail.getPosition(0, 0);
-/*    ofPoint trashPos = rail.getPosition(musicScore.MSs[i], musicScore.rIDs[i]);
-    trashes.push_back(Trash(10000, 0, 0, 0));
-    trashPos = ofPoint(256, 256);
-    trashes.push_back(Trash(20000, 0, 0, 1));
-    trashPos = ofPoint(384, 384);
-    trashes.push_back(Trash(30000, 0, 0, 2));*/
+    
     roombas.push_back(Roomba(roombaInitialPos, rail.vel));
     
     bgImg.loadImage("stage1/background.png");
