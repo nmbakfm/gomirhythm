@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "SceneBase.h"
 #include "Rail.h"
+#include "MusicScore.h"
 #include "Trash.h"
 #include "Roomba.h"
 
@@ -51,6 +52,8 @@ public:
     ofTrueTypeFont scores;
 
     Rail rail;
+    
+    MusicScore musicScore;
 };
 
 #endif /* defined(__gomirhythm__Game__) */

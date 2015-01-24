@@ -16,13 +16,14 @@
 class Roomba
 {
 public:
-    ofPoint pos;    // 位置
-    ofPoint vel;    // 速度
+    ofPoint size;
+    ofPoint position;    // 位置
+    float velocity;    // 速度
     
-    Roomba();         // コンストラクタ
+    Roomba(ofPoint pos, float vel);         // コンストラクタ
     int vacuum(vector<Trash> &trashes, int currentMS);    // ゴミを吸い取る
     void update(ofPoint accel);    // 画面更新ごとに呼び出される 引数：加速度
-    void draw(int state);      // ロボット掃除機を描画する
+    void draw(ofPoint pos, int state);      // ロボット掃除機を描画する
     
 private:
     ofImage roombaImg;

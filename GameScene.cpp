@@ -11,23 +11,34 @@
 //--------------------------------------------------------------
 GameScene::GameScene(){
     score = 0;
-    ofPoint trashPos = ofPoint(128, 128);
+    
+    // MusicScore.xml から時間、ルンバID、ゴミの種類を読み込む
+    musicScore = MusicScore(1);
+    
+    // getPosition で座標を取得する。
+    rail = Rail(1);
+    ofPoint roombaInitialPos = rail.getPosition(0, 0);
+/*    ofPoint trashPos = rail.getPosition(musicScore.MSs[i], musicScore.rIDs[i]);
     trashes.push_back(Trash(10000, 0, 0, 0));
     trashPos = ofPoint(256, 256);
     trashes.push_back(Trash(20000, 0, 0, 1));
     trashPos = ofPoint(384, 384);
-    trashes.push_back(Trash(30000, 0, 0, 2));
-    roombas.resize(1);
+    trashes.push_back(Trash(30000, 0, 0, 2));*/
+    roombas.push_back(Roomba(roombaInitialPos, rail.vel));
     
     bgImg.loadImage("stage1/background.png");
     bgm.loadSound("stage1/stage1.mp3");
     bgm.play();
-    rail = Rail(1);
     
-    // MusicScore.xml からtrash の数に応じたscore のしきい値テーブルを作成する
     numOfTrash = 0;
-    NGScores.push_back(0);
-    warnScores.push_back(0);
+    // MusicScore からtrash の数に応じたscore のしきい値テーブルを作成する
+    // ゴミを配置する
+    for(int i = 0; i < musicScore.MSs.size(); ++i)
+    {
+        NGScores.push_back(75 * i);
+        warnScores.push_back(150 * i);
+        trashes.push_back(Trash(musicScore.MSs[i], 0, musicScore.rIDs[i], musicScore.tIDs[i]));
+    }
 }
 
 //--------------------------------------------------------------
@@ -96,12 +107,12 @@ void GameScene::draw(){
     // Roomba を描画する
     for(int i = 0; i < roombas.size(); ++i)
     {
-        roombas[i].draw(state);
+        roombas[i].draw(rail.getPosition(ofGetElapsedTimeMillis(), i), state);
     }
     rail.draw();
     
     scores.drawString(ofToString(score), 400, 80);
-    ofCircle(rail.getPosition(ofGetElapsedTimeMillis(), 1), 10);
+//    ofCircle(rail.getPosition(ofGetElapsedTimeMillis(), 1), 10);
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #include "Trash.h"
+#include "Rail.h"
 
 //-----------------------------------------------------
 string ImageNames[1][3][3] =
@@ -23,23 +24,15 @@ const int lifeMergin = 1000;
 
 Trash::Trash(int msec, int sID, int rID, int tID)
 {
-    // 仮の処理 最終的にはRail.getPosition を使う
-    if (msec == 10000)
-    {
-        position.set(256, 256);
-    }
-    else if(msec == 20000)
-    {
-        position.set(384, 384);
-    }
-    else
-    {
-        position.set(512, 512);
-    }
-    
     string imageName = ImageNames[sID][rID][tID];
     trashImg.loadImage(imageName);
     size.set(trashImg.width, trashImg.height);
+    
+    // 仮の処理 最終的にはRail.getPosition を使う
+    rail = Rail(sID + 1);
+    ofPoint pos = rail.getPosition(msec, rID);
+    position.set(pos - (size / 2));
+    
     lifeMS = msec + lifeMergin;
     
     font.loadFont("vag.ttf", 72);
