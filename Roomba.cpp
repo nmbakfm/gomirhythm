@@ -17,7 +17,7 @@ public:
     float radius;
     int score;
 
-    void SetParam(string areaName, float areaRadius, int areaScore)
+    JudgeArea(string areaName, float areaRadius, int areaScore)
     {
         name = areaName;
         radius = areaRadius;
@@ -39,9 +39,8 @@ Roomba::Roomba()
     roombaImg.loadImage("runba_blue.png");
     
     // 判定用のエリア設定
-    areas.resize(2);
-    areas[0].SetParam("Perfect", 20.0f, 100);
-    areas[1].SetParam("Good", 50.0f, 50);
+    areas.push_back(JudgeArea("Perfect", 20.0f, 100));
+    areas.push_back(JudgeArea("Good", 50.0f, 50));
 }
 
 // ゴミを吸い込む
@@ -103,9 +102,18 @@ void Roomba::update(ofPoint accel)
 }
     
 // ロボット掃除機を描画する
-void Roomba::draw()
+void Roomba::draw(int state)
 {
     // pos の位置にロボット掃除機を描画する
-    roombaImg.draw(pos);
+    switch(state)
+    {
+        case WARN:
+            // 点滅表示させる
+        case NG:
+            // 煙を出す
+        default:
+            roombaImg.draw(pos);
+            break;
+    }
 //    ofCircle(384, 384, areas[1].radius);
 }

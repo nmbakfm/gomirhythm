@@ -19,8 +19,13 @@ GameScene::GameScene(){
     trashes.push_back(Trash(30000, 0, 0, 2));
     roombas.resize(1);
     
+    bgImg.loadImage("stage1/background.png");
     bgm.loadSound("stage1/Mixdown.mp3");
     bgm.play();
+    
+    numOfTrash = 0;
+    NGScores.push_back(0);
+    warnScores.push_back(0);
 }
 
 //--------------------------------------------------------------
@@ -34,6 +39,22 @@ void GameScene::update(){
     {
         roombas[i].update(accel);
         score += roombas[i].vacuum(trashes, bgmPosMS);
+    }
+    // 現在のスコアを判定してRoomba の状態を変更する
+    if(score < NGScores[numOfTrash])
+    {
+        // NG にする
+        state = NG;
+    }
+    else if(score < warnScores[numOfTrash])
+    {
+        // warn にする
+        state = WARN;
+    }
+    else
+    {
+        // OK にする
+        state = OK;
     }
     
     // BGM の再生時間を取得してtrash の削除判定をする
@@ -53,10 +74,14 @@ void GameScene::update(){
             ++trashIt;
         }
     }
+    
+    // 曲の終了判定をして、ステージクリアかゲームオーバーの処理をする
 }
 
 //--------------------------------------------------------------
 void GameScene::draw(){
+    bgImg.draw(0, 0);
+    
     for(int i= 0;i < trashes.size();i++)
     {
         //全てのtrashsの中身を描く
@@ -66,7 +91,7 @@ void GameScene::draw(){
     // Roomba を描画する
     for(int i = 0; i < roombas.size(); ++i)
     {
-        roombas[i].draw();
+        roombas[i].draw(state);
     }
 }
 

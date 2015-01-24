@@ -17,7 +17,12 @@
 class GameScene : public SceneBase {
     int stage;
     int score;
+    vector<int> warnScores;
+    vector<int> NGScores;
+    int numOfTrash;
+    int state;
     ofSoundPlayer bgm;
+    ofImage bgImg;
     
 public:
     GameScene();
