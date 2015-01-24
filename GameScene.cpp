@@ -19,22 +19,24 @@ GameScene::GameScene(){
     trashes.push_back(Trash(30000, 0, 0, 2));
     roombas.resize(1);
     
-    bgm.loadSound("Mixdown.mp3");
+    bgm.loadSound("stage1/Mixdown.mp3");
     bgm.play();
 }
 
 //--------------------------------------------------------------
 void GameScene::update(){
     ofPoint accel = ofPoint(0.0f, 0.0f);
+    
+    int bgmPosMS = bgm.getPositionMS();
+    
     // 加速度を与えてRoomba を更新する
     for(int i = 0; i < roombas.size(); ++i)
     {
         roombas[i].update(accel);
-        score += roombas[i].vacuum(trashes);
+        score += roombas[i].vacuum(trashes, bgmPosMS);
     }
     
     // BGM の再生時間を取得してtrash の削除判定をする
-    int bgmPosMS = bgm.getPositionMS();
     vector<Trash>::iterator trashIt = trashes.begin();
     while(trashIt != trashes.end())
     {

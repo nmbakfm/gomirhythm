@@ -13,7 +13,7 @@ string ImageNames[1][3][3] =
 {
     {
         // Stage 1
-        {"snack.png", "kan_green.png", "book.png"},    // Roomba 1
+        {"stage1/snack.png", "stage1/kan_green.png", "stage1/book.png"},    // Roomba 1
         {"", "", ""},    // Roomba 2
         {"", "", ""}    // Roomba 3
     }
@@ -55,6 +55,7 @@ void Trash::vacuumed(string judge,int currentMS)
 void Trash::draw(){
     //ゴミの絵の表示
     trashImg.draw(position);
+    font.drawString(judgeName, position.x, position.y);
 }
 
 bool Trash::judgeLife(int currentMS)
