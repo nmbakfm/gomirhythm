@@ -41,6 +41,15 @@ Trash::Trash(int msec, int sID, int rID, int tID)
     trashImg.loadImage(imageName);
     size.set(trashImg.width, trashImg.height);
     lifeMS = msec + lifeMergin;
+    
+    font.loadFont("vag.ttf", 72);
+}
+
+void Trash::vacuumed(string judge,int currentMS)
+{
+    font.drawString(judge, position.x, position.y);
+    trashImg.clear();
+    lifeMS = currentMS + 500;
 }
 
 void Trash::draw(){
