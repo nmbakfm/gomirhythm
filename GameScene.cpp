@@ -20,15 +20,15 @@ GameScene::GameScene(){
     roombas.resize(1);
     
     bgImg.loadImage("stage1/background.png");
-    bgm.loadSound("stage1/Mixdown.mp3");
+    bgm.loadSound("stage1/stage1.mp3");
     bgm.play();
+    rail = Rail(1);
     
+    // MusicScore.xml からtrash の数に応じたscore のしきい値テーブルを作成する
     numOfTrash = 0;
     NGScores.push_back(0);
     warnScores.push_back(0);
 }
-
-
 
 //--------------------------------------------------------------
 void GameScene::update(){
@@ -78,6 +78,8 @@ void GameScene::update(){
         }
     }
     
+    scores.loadFont("vag.ttf",72);
+
     // 曲の終了判定をして、ステージクリアかゲームオーバーの処理をする
 }
 
