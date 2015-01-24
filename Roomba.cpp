@@ -15,11 +15,13 @@ class JudgeArea
 public:
     string name;
     float radius;
+    int score;
 
-    void SetParam(string areaName, float areaRadius)
+    void SetParam(string areaName, float areaRadius, int areaScore)
     {
         name = areaName;
         radius = areaRadius;
+        score = areaScore;
     }
 };
 
@@ -38,13 +40,16 @@ Roomba::Roomba()
     
     // 判定用のエリア設定
     areas.resize(2);
-    areas[0].SetParam("Perfect", 20.0f);
-    areas[1].SetParam("Good", 50.0f);
+    areas[0].SetParam("Perfect", 20.0f, 100);
+    areas[1].SetParam("Good", 50.0f, 50);
 }
 
 // ゴミを吸い込む
-void Roomba::vacuum(vector<Trash> &trashes)
+int Roomba::vacuum(vector<Trash> &trashes)
 {
+    // 戻り値（スコア）の宣言
+    int score = 0;
+    
     // Roomba の中心座標を計算する
     ofPoint roombaPos(roombaImg.width, roombaImg.height);
     roombaPos /= 2;
@@ -59,20 +64,34 @@ void Roomba::vacuum(vector<Trash> &trashes)
         // trash の中心座標を計算する
         trashPos += (trashTemp.size / 2);
         
-        // 自分のpos と比較する
+        // 自分とゴミの距離を計算する
         float distance = sqrt(pow(static_cast<double>(roombaPos.x - trashPos.x), 2.0) +
                               pow(static_cast<double>(roombaPos.y - trashPos.y), 2.0));
+        
+        // 自分のpos と比較する
+        bool areaInFlag = false;
         vector<JudgeArea>::iterator areaIt = areas.begin();
         while(areaIt != areas.end())
         {
             JudgeArea areaTemp = *areaIt;
-            if((distance <= areaTemp.radius) && (ofGetKeyPressed('a')))
+            if((distance <= areaTemp.radius))
             {
-                // 座標が一致したらtrash を削除する
-                trashes.erase(trashIt);
-                break;
+                areaInFlag = true;
+                trashTemp.delFlag = true;
+                if(ofGetKeyPressed('a'))
+                {
+                    // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
+                    trashes.erase(trashIt);
+                    score += areaTemp.score;
+                    break;
+                }
             }
             ++areaIt;
+        }
+        // キー入力せずに通過したtrash を削除する
+        if(!areaInFlag && trashTemp.delFlag)
+        {
+//            trashes.erase(trashIt);
         }
         
         if(trashIt != trashes.end())
@@ -96,6 +115,5 @@ void Roomba::draw()
 {
     // pos の位置にロボット掃除機を描画する
     roombaImg.draw(pos);
-    ofCircle(384, 384, areas[1].radius);
-//    ofCircle(pos.x, pos.y, radius);
+//    ofCircle(384, 384, areas[1].radius);
 }

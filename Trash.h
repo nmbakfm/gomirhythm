@@ -15,9 +15,10 @@
 class Trash {
     
 public:
-    Trash();
+    Trash(ofPoint pos, int imgId);
     ofPoint position;
     ofPoint size;
+    bool delFlag;
     void draw();
     
 private:

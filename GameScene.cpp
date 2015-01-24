@@ -10,7 +10,13 @@
 
 //--------------------------------------------------------------
 GameScene::GameScene(){
-    trashes.resize(1);
+    score = 0;
+    ofPoint trashPos = ofPoint(128, 128);
+    trashes.push_back(Trash(trashPos, 1));
+    trashPos = ofPoint(256, 256);
+    trashes.push_back(Trash(trashPos, 2));
+    trashPos = ofPoint(384, 384);
+    trashes.push_back(Trash(trashPos, 3));
     roombas.resize(1);
 }
 
@@ -21,7 +27,7 @@ void GameScene::update(){
     for(int i = 0; i < roombas.size(); ++i)
     {
         roombas[i].update(accel);
-        roombas[i].vacuum(trashes);
+        score += roombas[i].vacuum(trashes);
     }
 }
 

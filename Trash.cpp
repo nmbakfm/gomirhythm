@@ -9,12 +9,33 @@
 #include "Trash.h"
 
 //-----------------------------------------------------
-Trash::Trash()
+enum Images
 {
-    position.set(256,256);
+    SNACK = 1,
+    KAN,
+    BOOK
+};
+
+Trash::Trash(ofPoint pos, int imgId)
+{
+    position.set(pos);
     
-    trashImg.loadImage("snack.png");
+    switch(imgId)
+    {
+        case SNACK:
+            trashImg.loadImage("snack.png");
+            break;
+        case KAN:
+            trashImg.loadImage("kan_green.png");
+            break;
+        case BOOK:
+            trashImg.loadImage("book.png");
+            break;
+        default:
+            ;
+    }
     size.set(trashImg.width, trashImg.height);
+    delFlag = false;
 }
 
 void Trash::draw(){

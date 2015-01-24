@@ -16,6 +16,7 @@
 
 class GameScene : public SceneBase {
     int stage;
+    int score;
     
 public:
     GameScene();
