@@ -9,37 +9,46 @@
 #include "Trash.h"
 
 //-----------------------------------------------------
-enum Images
+string ImageNames[1][3][3] =
 {
-    SNACK = 1,
-    KAN,
-    BOOK
+    {
+        // Stage 1
+        {"snack.png", "kan_green.png", "book.png"},    // Roomba 1
+        {"", "", ""},    // Roomba 2
+        {"", "", ""}    // Roomba 3
+    }
 };
 
-Trash::Trash(ofPoint pos, int imgId)
+const int lifeMergin = 1000;
+
+Trash::Trash(int msec, int sID, int rID, int tID)
 {
-    position.set(pos);
-    
-    switch(imgId)
+    // 仮の処理 最終的にはRail.getPosition を使う
+    if (msec == 10000)
     {
-        case SNACK:
-            trashImg.loadImage("snack.png");
-            break;
-        case KAN:
-            trashImg.loadImage("kan_green.png");
-            break;
-        case BOOK:
-            trashImg.loadImage("book.png");
-            break;
-        default:
-            ;
+        position.set(256, 256);
     }
+    else if(msec == 20000)
+    {
+        position.set(384, 384);
+    }
+    else
+    {
+        position.set(512, 512);
+    }
+    
+    string imageName = ImageNames[sID][rID][tID];
+    trashImg.loadImage(imageName);
     size.set(trashImg.width, trashImg.height);
-    delFlag = false;
+    lifeMS = msec + lifeMergin;
 }
 
 void Trash::draw(){
     //ゴミの絵の表示
     trashImg.draw(position);
-    
+}
+
+bool Trash::judgeLife(int currentMS)
+{
+    return (currentMS < lifeMS);
 }

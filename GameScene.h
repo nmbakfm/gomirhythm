@@ -17,6 +17,7 @@
 class GameScene : public SceneBase {
     int stage;
     int score;
+    ofSoundPlayer bgm;
     
 public:
     GameScene();

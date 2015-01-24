@@ -12,12 +12,15 @@
 GameScene::GameScene(){
     score = 0;
     ofPoint trashPos = ofPoint(128, 128);
-    trashes.push_back(Trash(trashPos, 1));
+    trashes.push_back(Trash(10000, 0, 0, 0));
     trashPos = ofPoint(256, 256);
-    trashes.push_back(Trash(trashPos, 2));
+    trashes.push_back(Trash(20000, 0, 0, 1));
     trashPos = ofPoint(384, 384);
-    trashes.push_back(Trash(trashPos, 3));
+    trashes.push_back(Trash(30000, 0, 0, 2));
     roombas.resize(1);
+    
+    bgm.loadSound("Mixdown.mp3");
+    bgm.play();
 }
 
 //--------------------------------------------------------------
@@ -28,6 +31,25 @@ void GameScene::update(){
     {
         roombas[i].update(accel);
         score += roombas[i].vacuum(trashes);
+    }
+    
+    // BGM の再生時間を取得してtrash の削除判定をする
+    int bgmPosMS = bgm.getPositionMS();
+    vector<Trash>::iterator trashIt = trashes.begin();
+    while(trashIt != trashes.end())
+    {
+        Trash trashTemp = *trashIt;
+        
+        //trashes の寿命を判定する
+        if(!(trashTemp.judgeLife(bgmPosMS)))
+        {
+            trashes.erase(trashIt);
+        }
+        
+        if(trashIt != trashes.end())
+        {
+            ++trashIt;
+        }
     }
 }
 

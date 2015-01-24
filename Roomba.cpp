@@ -69,15 +69,12 @@ int Roomba::vacuum(vector<Trash> &trashes)
                               pow(static_cast<double>(roombaPos.y - trashPos.y), 2.0));
         
         // 自分のpos と比較する
-        bool areaInFlag = false;
         vector<JudgeArea>::iterator areaIt = areas.begin();
         while(areaIt != areas.end())
         {
             JudgeArea areaTemp = *areaIt;
             if((distance <= areaTemp.radius))
             {
-                areaInFlag = true;
-                trashTemp.delFlag = true;
                 if(ofGetKeyPressed('a'))
                 {
                     // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
@@ -87,11 +84,6 @@ int Roomba::vacuum(vector<Trash> &trashes)
                 }
             }
             ++areaIt;
-        }
-        // キー入力せずに通過したtrash を削除する
-        if(!areaInFlag && trashTemp.delFlag)
-        {
-//            trashes.erase(trashIt);
         }
         
         if(trashIt != trashes.end())

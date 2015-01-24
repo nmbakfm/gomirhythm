@@ -15,15 +15,16 @@
 class Trash {
     
 public:
-    Trash(ofPoint pos, int imgId);
+    Trash(int msec, int sID, int rID, int tID);
     ofPoint position;
     ofPoint size;
     bool delFlag;
     void draw();
+    bool judgeLife(int currentMS);
     
 private:
     ofImage trashImg;
-    
+    int lifeMS;
 };
 
 #endif /* defined(__gomirhythm__Trash__) */
