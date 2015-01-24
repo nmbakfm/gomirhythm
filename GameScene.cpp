@@ -11,6 +11,7 @@
 //--------------------------------------------------------------
 GameScene::GameScene(){
     score = 0;
+    state = OK;
     
     // MusicScore.xml から時間、ルンバID、ゴミの種類を読み込む
     musicScore = MusicScore(1);
@@ -37,8 +38,6 @@ GameScene::GameScene(){
         NGScores.push_back(75 * i);
         warnScores.push_back(150 * i);
     }
-    // 最初のゴミを配置する
-    trashes.push_back(Trash(musicScore.MSs[numOfTrash], 0, musicScore.rIDs[numOfTrash], musicScore.tIDs[numOfTrash]));
 
     scores.loadFont("vag.ttf", 72);
 }
@@ -52,10 +51,6 @@ void GameScene::update(){
     else if(state == GAME_OVER)
     {
         // 背景を吸い込む
-        for(int i = 0; i < 20; ++i)
-        {
-            bgImg.rotate90(i);
-        }
     }
     else
     {
@@ -97,32 +92,35 @@ void GameScene::update(){
             {
                 // ゴミを消す
                 trashes.erase(trashIt);
-            
-                // 次のゴミを置く
-                if(numOfTrash < musicScore.MSs.size() - 1)
-                {
-                    ++numOfTrash;
-                    trashes.push_back(Trash(musicScore.MSs[numOfTrash], 0, musicScore.rIDs[numOfTrash], musicScore.tIDs[numOfTrash]));
-                }
-                else
-                {
-                    // 終了 ステージクリアかゲームオーバーの処理をする
-                    if(score < NGScores[numOfTrash])
-                    {
-                        // ゲームオーバー
-                        state = GAME_OVER;
-                    }
-                    else
-                    {
-                        // ステージクリア
-                        state = STAGE_CLEAR;
-                    }
-                }
             }
         
             if(trashIt != trashes.end())
             {
                 ++trashIt;
+            }
+        }
+        
+        // 次のゴミを置く
+        if(numOfTrash < musicScore.MSs.size() - 1)
+        {
+            if(bgmPosMS > musicScore.appearMSs[numOfTrash])
+            {
+                trashes.push_back(Trash(musicScore.MSs[numOfTrash], 0, musicScore.rIDs[numOfTrash], musicScore.tIDs[numOfTrash]));
+                ++numOfTrash;
+            }
+        }
+        else
+        {
+            // 終了 ステージクリアかゲームオーバーの処理をする
+            if(score < NGScores[numOfTrash])
+            {
+                // ゲームオーバー
+                state = GAME_OVER;
+            }
+            else
+            {
+                // ステージクリア
+                state = STAGE_CLEAR;
             }
         }
     }

@@ -22,6 +22,12 @@ MusicScore::MusicScore(int stage_id)
         int rID = xml.getValue("roomba", 0);
         int tID = xml.getValue("type", 0);
         MSs.push_back(msec);
+        int appearMS = msec - 5000;
+        if(appearMS < 0)
+        {
+            appearMS = 0;
+        }
+        appearMSs.push_back(appearMS);
         rIDs.push_back(rID);
         tIDs.push_back(tID);
         xml.popTag(); // trash

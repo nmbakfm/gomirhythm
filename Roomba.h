@@ -35,11 +35,11 @@ private:
 // ステージの状態
 enum States
 {
-    OK,
-    WARN,
-    NG,
-    STAGE_CLEAR,
-    GAME_OVER
+    OK = 0,
+    WARN = 1,
+    NG = 2,
+    STAGE_CLEAR = 3,
+    GAME_OVER = 4
 };
 
 #endif /* defined(__gomirhythm__Roomba__) */

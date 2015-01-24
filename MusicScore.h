@@ -22,6 +22,7 @@ public:
     vector<int> MSs;
     vector<int> rIDs;
     vector<int> tIDs;
+    vector<int> appearMSs;
 };
 
 #endif /* defined(__gomirhythm__MusicScore__) */
