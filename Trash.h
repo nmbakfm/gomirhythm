@@ -27,6 +27,7 @@ private:
     ofImage trashImg;
     int lifeMS;
     ofTrueTypeFont font;
+    string judgeName;
 };
 
 #endif /* defined(__gomirhythm__Trash__) */

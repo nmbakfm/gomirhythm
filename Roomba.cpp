@@ -91,7 +91,9 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
             ++trashIt;
         }
     }
-
+    
+    //scorefont.drawString("Score",400,80);
+    return score;
 }
 
 // 画面更新ごとに呼び出される

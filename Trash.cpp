@@ -45,17 +45,19 @@ Trash::Trash(int msec, int sID, int rID, int tID)
     font.loadFont("vag.ttf", 72);
 }
 
-void Trash::vacuumed(string judge,int currentMS)
+void Trash::vacuumed(string judge, int currentMS)
 {
-    font.drawString(judge, position.x, position.y);
+    judgeName = judge;
     trashImg.clear();
-    lifeMS = currentMS + 500;
+    lifeMS = currentMS + 1000;
 }
 
 void Trash::draw(){
     //ゴミの絵の表示
     trashImg.draw(position);
     font.drawString(judgeName, position.x, position.y);
+    
+    
 }
 
 bool Trash::judgeLife(int currentMS)

@@ -19,6 +19,7 @@ class GameScene : public SceneBase {
     int score;
     ofSoundPlayer bgm;
     
+    
 public:
     GameScene();
     void update();
@@ -39,6 +40,10 @@ public:
 
     // ロボット掃除機の実体宣言
     vector<Roomba> roombas;
+    
+    string scoretime;
+    ofTrueTypeFont scores;
+
 };
 
 #endif /* defined(__gomirhythm__Game__) */

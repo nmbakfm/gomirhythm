@@ -21,11 +21,15 @@ GameScene::GameScene(){
     
     bgm.loadSound("stage1/Mixdown.mp3");
     bgm.play();
+    
 }
+
+
 
 //--------------------------------------------------------------
 void GameScene::update(){
     ofPoint accel = ofPoint(0.0f, 0.0f);
+    scores.loadFont("vag.ttf", 72);
     
     int bgmPosMS = bgm.getPositionMS();
     
@@ -53,6 +57,8 @@ void GameScene::update(){
             ++trashIt;
         }
     }
+    
+    scores.loadFont("vag.ttf",72);
 }
 
 //--------------------------------------------------------------
@@ -68,7 +74,11 @@ void GameScene::draw(){
     {
         roombas[i].draw();
     }
+    
+    scores.drawString(ofToString(score), 400, 80);
 }
+
+
 
 //--------------------------------------------------------------
 void GameScene::keyPressed(int key){
