@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "SceneBase.h"
 #include "GameScene.h"
+#include "Trash.h"
 
 class ofApp : public ofBaseApp{
 

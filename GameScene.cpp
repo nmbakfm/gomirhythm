@@ -20,6 +20,11 @@ void GameScene::update(){
 
 //--------------------------------------------------------------
 void GameScene::draw(){
+    for(int i= 0;i < trashs.size();i++)
+    {
+        //全てのtrashsの中身を描く
+        trashs[i]->draw();
+    }
     
 }
 

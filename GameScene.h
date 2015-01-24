@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "SceneBase.h"
+#include "Trash.h"
 
 class GameScene : public SceneBase {
     int stage;
@@ -29,6 +30,11 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
+    
+    Trash trash;
+    //トラッシュクラスの動的配列
+    vector<Trash *> trashs;
+    
 };
 
 #endif /* defined(__gomirhythm__Game__) */
