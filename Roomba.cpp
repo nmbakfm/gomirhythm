@@ -7,6 +7,23 @@
 //
 
 #include "Roomba.h"
+#include <math.h>
+
+// 判定用
+class JudgeArea
+{
+public:
+    string name;
+    float radius;
+
+    void SetParam(string areaName, float areaRadius)
+    {
+        name = areaName;
+        radius = areaRadius;
+    }
+};
+
+vector<JudgeArea> areas;
 
 // コンストラクタ
 Roomba::Roomba()
@@ -18,6 +35,11 @@ Roomba::Roomba()
     
     // Roomba の画像を読み込む
     roombaImg.loadImage("runba_blue.png");
+    
+    // 判定用のエリア設定
+    areas.resize(2);
+    areas[0].SetParam("Perfect", 20.0f);
+    areas[1].SetParam("Good", 50.0f);
 }
 
 // ゴミを吸い込む
@@ -38,12 +60,22 @@ void Roomba::vacuum(vector<Trash> &trashes)
         trashPos += (trashTemp.size / 2);
         
         // 自分のpos と比較する
-        if(roombaPos == trashPos)
+        float distance = sqrt(pow(static_cast<double>(roombaPos.x - trashPos.x), 2.0) +
+                              pow(static_cast<double>(roombaPos.y - trashPos.y), 2.0));
+        vector<JudgeArea>::iterator areaIt = areas.begin();
+        while(areaIt != areas.end())
         {
-            // 座標が一致したらtrash を削除する
-            trashes.erase(trashIt);
+            JudgeArea areaTemp = *areaIt;
+            if((distance <= areaTemp.radius) && (ofGetKeyPressed('a')))
+            {
+                // 座標が一致したらtrash を削除する
+                trashes.erase(trashIt);
+                break;
+            }
+            ++areaIt;
         }
-        else
+        
+        if(trashIt != trashes.end())
         {
             ++trashIt;
         }
@@ -64,5 +96,6 @@ void Roomba::draw()
 {
     // pos の位置にロボット掃除機を描画する
     roombaImg.draw(pos);
+    ofCircle(384, 384, areas[1].radius);
 //    ofCircle(pos.x, pos.y, radius);
 }
