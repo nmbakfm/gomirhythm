@@ -11,9 +11,13 @@
 //-----------------------------------------------------
 Trash::Trash()
 {
+    position.set(0,0);
     
+    trashImg.loadImage("snack.png");
 }
 
 void Trash::draw(){
+    //ゴミの絵の表示
+    trashImg.draw(position);
     
 }

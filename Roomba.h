@@ -22,6 +22,10 @@ public:
     void vacuum();    // ゴミを吸い取る
     void update(ofPoint accel);    // 画面更新ごとに呼び出される 引数：加速度
     void draw();      // ロボット掃除機を描画する
+    
+private:
+    ofImage roombaImg;
+    float radius;
 };
 
 #endif /* defined(__gomirhythm__Roomba__) */

@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "SceneBase.h"
 #include "Trash.h"
+#include "Roomba.h"
 
 class GameScene : public SceneBase {
     int stage;
@@ -31,10 +32,11 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
-    Trash trash;
     //トラッシュクラスの動的配列
-    vector<Trash *> trashs;
-    
+    vector<Trash> trashes;
+
+    // ロボット掃除機の実体宣言
+    vector<Roomba> roombas;
 };
 
 #endif /* defined(__gomirhythm__Game__) */

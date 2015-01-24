@@ -19,6 +19,9 @@ public:
     ofPoint position;
     void draw();
     
+private:
+    ofImage trashImg;
+    
 };
 
 #endif /* defined(__gomirhythm__Trash__) */

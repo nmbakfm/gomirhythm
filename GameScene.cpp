@@ -10,22 +10,33 @@
 
 //--------------------------------------------------------------
 GameScene::GameScene(){
-    
+    trashes.resize(1);
+    roombas.resize(1);
 }
 
 //--------------------------------------------------------------
 void GameScene::update(){
-    
+    ofPoint accel = ofPoint(0.0f, 0.0f);
+    // 加速度を与えてRoomba を更新する
+    for(int i = 0; i < roombas.size(); ++i)
+    {
+        roombas[i].update(accel);
+    }
 }
 
 //--------------------------------------------------------------
 void GameScene::draw(){
-    for(int i= 0;i < trashs.size();i++)
+    for(int i= 0;i < trashes.size();i++)
     {
         //全てのtrashsの中身を描く
-        trashs[i]->draw();
+        trashes[i].draw();
     }
     
+    // Roomba を描画する
+    for(int i = 0; i < roombas.size(); ++i)
+    {
+        roombas[i].draw();
+    }
 }
 
 //--------------------------------------------------------------
