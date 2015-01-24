@@ -11,23 +11,27 @@
 // コンストラクタ
 Roomba::Roomba()
 {
-    
+    // public 変数の初期化をする
+    pos.set(0.0f, 0.0f);
+    vel.set(1.0f, 1.0f);
 }
 
 // ゴミを吸い込む
 void Roomba::vacuum()
 {
-    
+    // Trashes のpos を取得する
+    // 自分のpos と比較する
+    // 座標が近ければ該当のtrash を削除する
 }
 
 // 画面更新ごとに呼び出される
-void Roomba::update()
+void Roomba::update(ofPoint accel)
 {
-    
+    // pos とvel を更新する
 }
     
 // ロボット掃除機を描画する
 void Roomba::draw()
 {
-    
+    // pos の位置にロボット掃除機を描画する
 }
