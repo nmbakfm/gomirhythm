@@ -102,8 +102,8 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
 void Roomba::update(ofPoint accel)
 {
     // pos とvel を更新する
-    pos += vel;
-    vel += accel;
+    //pos += vel;
+    //vel += accel;
     deg += 10;
 }
     
