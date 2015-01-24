@@ -21,6 +21,7 @@ void GameScene::update(){
     for(int i = 0; i < roombas.size(); ++i)
     {
         roombas[i].update(accel);
+        roombas[i].vacuum(trashes);
     }
 }
 

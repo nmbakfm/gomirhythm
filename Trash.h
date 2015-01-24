@@ -17,6 +17,7 @@ class Trash {
 public:
     Trash();
     ofPoint position;
+    ofPoint size;
     void draw();
     
 private:

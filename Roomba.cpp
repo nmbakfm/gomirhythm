@@ -21,11 +21,34 @@ Roomba::Roomba()
 }
 
 // ゴミを吸い込む
-void Roomba::vacuum()
+void Roomba::vacuum(vector<Trash> &trashes)
 {
-    // Trashes のpos を取得する
-    // 自分のpos と比較する
-    // 座標が近ければ該当のtrash を削除する
+    // Roomba の中心座標を計算する
+    ofPoint roombaPos(roombaImg.width, roombaImg.height);
+    roombaPos /= 2;
+    roombaPos += pos;
+    
+    vector<Trash>::iterator trashIt = trashes.begin();
+    while(trashIt != trashes.end())
+    {
+        // Trashes のpos を取得する
+        Trash trashTemp = *trashIt;
+        ofPoint trashPos = trashTemp.position;
+        // trash の中心座標を計算する
+        trashPos += (trashTemp.size / 2);
+        
+        // 自分のpos と比較する
+        if(roombaPos == trashPos)
+        {
+            // 座標が一致したらtrash を削除する
+            trashes.erase(trashIt);
+        }
+        else
+        {
+            ++trashIt;
+        }
+    }
+
 }
 
 // 画面更新ごとに呼び出される

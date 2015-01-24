@@ -11,9 +11,10 @@
 //-----------------------------------------------------
 Trash::Trash()
 {
-    position.set(0,0);
+    position.set(256,256);
     
     trashImg.loadImage("snack.png");
+    size.set(trashImg.width, trashImg.height);
 }
 
 void Trash::draw(){
