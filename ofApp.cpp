@@ -3,17 +3,31 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0);
-    scene = new GameScene();
+    scene = new TitleScene();
+    fade_alpha = 255;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     scene -> update();
+    
+    if(scene -> bChangeScene){
+        if(fade_alpha < 255) fade_alpha += 5;
+        else nextScene(scene -> to);
+    }else{
+        if(fade_alpha > 0) fade_alpha -= 5;
+    }
+    
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofSetColor(255);
     scene -> draw();
+    
+    ofSetColor(255, fade_alpha);
+    ofRect(0, 0, ofGetWidth(), ofGetHeight());
 }
 
 //--------------------------------------------------------------
@@ -59,4 +73,17 @@ void ofApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
     scene -> dragEvent(dragInfo);
+}
+
+void ofApp::nextScene(SCENE to){
+    switch (to) {
+        case GAME_SCENE:
+            scene = new GameScene();
+            break;
+        case TITLE_SCENE:
+            scene = new TitleScene();
+            break;
+        default:
+            break;
+    }
 }

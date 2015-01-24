@@ -1,7 +1,9 @@
 #pragma once
 
 #include "ofMain.h"
+#include "Constant.h"
 #include "SceneBase.h"
+#include "TitleScene.h"
 #include "GameScene.h"
 #include "Trash.h"
 
@@ -21,7 +23,8 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+        void nextScene(SCENE to);
     
     SceneBase * scene;
-		
+    int fade_alpha;
 };

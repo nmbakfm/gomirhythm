@@ -139,12 +139,11 @@ void GameScene::draw(){
     // Roomba を描画する
     for(int i = 0; i < roombas.size(); ++i)
     {
-        roombas[i].draw(rail.getPosition(ofGetElapsedTimeMillis(), i), state);
+        roombas[i].draw(rail.getPosition(bgm.getPositionMS(), i), state);
     }
     rail.draw();
     
     scores.drawString(ofToString(score), 400, 80);
-//    ofCircle(rail.getPosition(ofGetElapsedTimeMillis(), 1), 10);
 }
 
 
