@@ -63,11 +63,17 @@ void GameScene::update(){
 
 //--------------------------------------------------------------
 void GameScene::draw(){
-    for(int i= 0;i < trashes.size();i++)
-    {
-        //全てのtrashsの中身を描く
-        trashes[i].draw();
-    }
+//    for(int i= 0;i < trashes.size();i++)
+//    {
+//        //全てのtrashsの中身を描く
+//        trashes[i].draw();
+//    }
+//    
+//    // Roomba を描画する
+//    for(int i = 0; i < roombas.size(); ++i)
+//    {
+//        roombas[i].draw();
+//    }
     
     // Roomba を描画する
     for(int i = 0; i < roombas.size(); ++i)

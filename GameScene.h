@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "SceneBase.h"
+#include "Rail.h"
 #include "Trash.h"
 #include "Roomba.h"
 
