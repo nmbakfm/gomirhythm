@@ -45,7 +45,7 @@ Roomba::Roomba()
 }
 
 // ゴミを吸い込む
-int Roomba::vacuum(vector<Trash> &trashes)
+int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
 {
     // 戻り値（スコア）の宣言
     int score = 0;
@@ -78,7 +78,8 @@ int Roomba::vacuum(vector<Trash> &trashes)
                 if(ofGetKeyPressed('a'))
                 {
                     // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
-                    trashes.erase(trashIt);
+                    trashTemp.vacuumed(areaTemp.name, currentMS);
+//                    trashes.erase(trashIt);
                     score += areaTemp.score;
                     break;
                 }

@@ -21,6 +21,7 @@ public:
     bool delFlag;
     void draw();
     bool judgeLife(int currentMS);
+    void vacuumed(string judge, int currentMS);
     
 private:
     ofImage trashImg;

@@ -52,3 +52,8 @@ bool Trash::judgeLife(int currentMS)
 {
     return (currentMS < lifeMS);
 }
+
+void Trash::vacuumed(string judge, int currentMS)
+{
+    
+}
