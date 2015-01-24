@@ -19,6 +19,8 @@ GameScene::GameScene(){
     trashes.push_back(Trash(30000, 0, 0, 2));
     roombas.resize(1);
     
+    bgm.loadSound("Mixdown.mp3");
+    bgm.play();
     rail = Rail(1);
 }
 
@@ -69,6 +71,8 @@ void GameScene::draw(){
 //    }
     
     rail.draw();
+    
+    ofCircle(rail.getPosition(ofGetElapsedTimeMillis(), 1), 10);
 }
 
 //--------------------------------------------------------------
