@@ -17,7 +17,7 @@ public:
     float radius;
     int score;
 
-    void SetParam(string areaName, float areaRadius, int areaScore)
+    JudgeArea(string areaName, float areaRadius, int areaScore)
     {
         name = areaName;
         radius = areaRadius;
@@ -28,12 +28,11 @@ public:
 vector<JudgeArea> areas;
 
 // コンストラクタ
-Roomba::Roomba()
+Roomba::Roomba(ofPoint pos, float vel)
 {
     // メンバ変数の初期化をする
-    pos.set(0.0f, 0.0f);
-    vel.set(1.0f, 1.0f);
-    radius = 10.0;
+    position.set(pos);
+    velocity = vel;
     
     // Roomba の画像を読み込む
     roombaImg.loadImage("runba_blue.png");
@@ -41,9 +40,8 @@ Roomba::Roomba()
     deg = 0.0;
     
     // 判定用のエリア設定
-    areas.resize(2);
-    areas[0].SetParam("Perfect", 20.0f, 100);
-    areas[1].SetParam("Good", 50.0f, 50);
+    areas.push_back(JudgeArea("Perfect", 20.0f, 300));
+    areas.push_back(JudgeArea("Good", 50.0f, 200));
 }
 
 // Roomba の中心座標を計算する
@@ -57,7 +55,7 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
     // Roomba の中心座標を計算する
     ofPoint roombaPos(roombaImg.width, roombaImg.height);
     roombaPos /= 2;
-    roombaPos += pos;
+    roombaPos += position;
     
     vector<Trash>::iterator trashIt = trashes.begin();
     while(trashIt != trashes.end())
@@ -110,7 +108,7 @@ void Roomba::update(ofPoint accel)
 }
     
 // ロボット掃除機を描画する
-void Roomba::draw()
+void Roomba::draw(ofPoint pos, int state)
 {
     ofPushMatrix();
     ofRotate(deg);

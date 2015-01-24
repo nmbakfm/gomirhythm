@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "SceneBase.h"
+#include "Rail.h"
 
 class Trash {
     
@@ -28,6 +29,7 @@ private:
     int lifeMS;
     ofTrueTypeFont font;
     string judgeName;
+    Rail rail;
 };
 
 #endif /* defined(__gomirhythm__Trash__) */

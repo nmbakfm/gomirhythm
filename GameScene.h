@@ -12,14 +12,19 @@
 #include "ofMain.h"
 #include "SceneBase.h"
 #include "Rail.h"
+#include "MusicScore.h"
 #include "Trash.h"
 #include "Roomba.h"
 
 class GameScene : public SceneBase {
     int stage;
     int score;
+    vector<int> warnScores;
+    vector<int> NGScores;
+    int numOfTrash;
+    int state;
     ofSoundPlayer bgm;
-    
+    ofImage bgImg;
     
 public:
     GameScene();
@@ -46,6 +51,8 @@ public:
     ofTrueTypeFont scores;
 
     Rail rail;
+    
+    MusicScore musicScore;
 };
 
 #endif /* defined(__gomirhythm__Game__) */
