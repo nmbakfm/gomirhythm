@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "SceneBase.h"
+#include "Rail.h"
 #include "Trash.h"
 #include "Roomba.h"
 
@@ -37,6 +38,8 @@ public:
 
     // ロボット掃除機の実体宣言
     vector<Roomba> roombas;
+    
+    Rail rail;
 };
 
 #endif /* defined(__gomirhythm__Game__) */

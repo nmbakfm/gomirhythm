@@ -10,12 +10,17 @@
 #define __gomirhythm__Rail__
 
 #include "ofMain.h"
+#include "ofxXmlSettings.h"
 
 class Rail {
     
 public:
-    Rail();
+    Rail(){};
+    Rail(int stage_id);
     void draw();
+    
+    ofxXmlSettings xml;
+    vector<ofPoint> vertices;
 };
 
 #endif /* defined(__gomirhythm__Rail__) */
