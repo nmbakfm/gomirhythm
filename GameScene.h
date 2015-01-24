@@ -26,7 +26,6 @@ class GameScene : public SceneBase {
     ofSoundPlayer bgm;
     ofImage bgImg;
     
-    
 public:
     GameScene();
     void update();

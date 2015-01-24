@@ -32,66 +32,100 @@ GameScene::GameScene(){
     
     numOfTrash = 0;
     // MusicScore からtrash の数に応じたscore のしきい値テーブルを作成する
-    // ゴミを配置する
     for(int i = 0; i < musicScore.MSs.size(); ++i)
     {
         NGScores.push_back(75 * i);
         warnScores.push_back(150 * i);
-        trashes.push_back(Trash(musicScore.MSs[i], 0, musicScore.rIDs[i], musicScore.tIDs[i]));
     }
+    // 最初のゴミを配置する
+    trashes.push_back(Trash(musicScore.MSs[numOfTrash], 0, musicScore.rIDs[numOfTrash], musicScore.tIDs[numOfTrash]));
+
+    scores.loadFont("vag.ttf", 72);
 }
 
 //--------------------------------------------------------------
 void GameScene::update(){
-    ofPoint accel = ofPoint(0.0f, 0.0f);
-    scores.loadFont("vag.ttf", 72);
-    
-    int bgmPosMS = bgm.getPositionMS();
-    
-    // 加速度を与えてRoomba を更新する
-    for(int i = 0; i < roombas.size(); ++i)
+    if(state == STAGE_CLEAR)
     {
-        roombas[i].update(accel);
-        score += roombas[i].vacuum(trashes, bgmPosMS);
+        
     }
-    // 現在のスコアを判定してRoomba の状態を変更する
-    if(score < NGScores[numOfTrash])
+    else if(state == GAME_OVER)
     {
-        // NG にする
-        state = NG;
-    }
-    else if(score < warnScores[numOfTrash])
-    {
-        // warn にする
-        state = WARN;
+        // 背景を吸い込む
+        for(int i = 0; i < 20; ++i)
+        {
+            bgImg.rotate90(i);
+        }
     }
     else
     {
-        // OK にする
-        state = OK;
-    }
+        ofPoint accel = ofPoint(0.0f, 0.0f);
     
-    // BGM の再生時間を取得してtrash の削除判定をする
-    vector<Trash>::iterator trashIt = trashes.begin();
-    while(trashIt != trashes.end())
-    {
-        Trash trashTemp = *trashIt;
-        
-        //trashes の寿命を判定する
-        if(!(trashTemp.judgeLife(bgmPosMS)))
+        int bgmPosMS = bgm.getPositionMS();
+    
+        // 加速度を与えてRoomba を更新する
+        for(int i = 0; i < roombas.size(); ++i)
         {
-            trashes.erase(trashIt);
+            roombas[i].update(accel);
+            score += roombas[i].vacuum(trashes, bgmPosMS);
         }
-        
-        if(trashIt != trashes.end())
+        // 現在のスコアを判定してRoomba の状態を変更する
+        if(score < NGScores[numOfTrash])
         {
-            ++trashIt;
+            // NG にする
+            state = NG;
+        }
+        else if(score < warnScores[numOfTrash])
+        {
+            // warn にする
+            state = WARN;
+        }
+        else
+        {
+            // OK にする
+            state = OK;
+        }
+    
+        // BGM の再生時間を取得してtrash の削除判定をする
+        vector<Trash>::iterator trashIt = trashes.begin();
+        while(trashIt != trashes.end())
+        {
+            Trash trashTemp = *trashIt;
+        
+            //trashes の寿命を判定する
+            if(!(trashTemp.judgeLife(bgmPosMS)))
+            {
+                // ゴミを消す
+                trashes.erase(trashIt);
+            
+                // 次のゴミを置く
+                if(numOfTrash < musicScore.MSs.size() - 1)
+                {
+                    ++numOfTrash;
+                    trashes.push_back(Trash(musicScore.MSs[numOfTrash], 0, musicScore.rIDs[numOfTrash], musicScore.tIDs[numOfTrash]));
+                }
+                else
+                {
+                    // 終了 ステージクリアかゲームオーバーの処理をする
+                    if(score < NGScores[numOfTrash])
+                    {
+                        // ゲームオーバー
+                        state = GAME_OVER;
+                    }
+                    else
+                    {
+                        // ステージクリア
+                        state = STAGE_CLEAR;
+                    }
+                }
+            }
+        
+            if(trashIt != trashes.end())
+            {
+                ++trashIt;
+            }
         }
     }
-    
-    scores.loadFont("vag.ttf",72);
-
-    // 曲の終了判定をして、ステージクリアかゲームオーバーの処理をする
 }
 
 //--------------------------------------------------------------

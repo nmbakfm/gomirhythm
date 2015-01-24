@@ -12,6 +12,8 @@
 #include "ofMain.h"
 #include "Trash.h"
 
+
+
 // ロボット掃除機クラス
 class Roomba
 {
@@ -30,12 +32,14 @@ private:
     float radius;
 };
 
-// Roomba の状態
+// ステージの状態
 enum States
 {
     OK,
     WARN,
-    NG
+    NG,
+    STAGE_CLEAR,
+    GAME_OVER
 };
 
 #endif /* defined(__gomirhythm__Roomba__) */
