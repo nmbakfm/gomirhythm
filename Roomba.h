@@ -27,6 +27,7 @@ public:
 private:
     ofImage roombaImg;
     float radius;
+    float deg;
 };
 
 #endif /* defined(__gomirhythm__Roomba__) */

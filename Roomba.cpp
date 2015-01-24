@@ -37,12 +37,16 @@ Roomba::Roomba()
     
     // Roomba の画像を読み込む
     roombaImg.loadImage("runba_blue.png");
+    roombaImg.setAnchorPercent(0.5, 0.5);
+    deg = 0.0;
     
     // 判定用のエリア設定
     areas.resize(2);
     areas[0].SetParam("Perfect", 20.0f, 100);
     areas[1].SetParam("Good", 50.0f, 50);
 }
+
+// Roomba の中心座標を計算する
 
 // ゴミを吸い込む
 int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
@@ -102,12 +106,17 @@ void Roomba::update(ofPoint accel)
     // pos とvel を更新する
     pos += vel;
     vel += accel;
+    deg += 10;
 }
     
 // ロボット掃除機を描画する
 void Roomba::draw()
 {
+    ofPushMatrix();
+    ofRotate(deg);
+    //ofRect(roombaPos, width, height);
     // pos の位置にロボット掃除機を描画する
     roombaImg.draw(pos);
 //    ofCircle(384, 384, areas[1].radius);
+    ofPopMatrix();
 }
