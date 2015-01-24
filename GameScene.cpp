@@ -28,9 +28,12 @@ GameScene::GameScene(){
     warnScores.push_back(0);
 }
 
+
+
 //--------------------------------------------------------------
 void GameScene::update(){
     ofPoint accel = ofPoint(0.0f, 0.0f);
+    scores.loadFont("vag.ttf", 72);
     
     int bgmPosMS = bgm.getPositionMS();
     
@@ -93,7 +96,13 @@ void GameScene::draw(){
     {
         roombas[i].draw(state);
     }
+    rail.draw();
+    
+    scores.drawString(ofToString(score), 400, 80);
+    ofCircle(rail.getPosition(ofGetElapsedTimeMillis(), 1), 10);
 }
+
+
 
 //--------------------------------------------------------------
 void GameScene::keyPressed(int key){

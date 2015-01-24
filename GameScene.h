@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "SceneBase.h"
+#include "Rail.h"
 #include "Trash.h"
 #include "Roomba.h"
 
@@ -23,6 +24,7 @@ class GameScene : public SceneBase {
     int state;
     ofSoundPlayer bgm;
     ofImage bgImg;
+    
     
 public:
     GameScene();
@@ -44,6 +46,11 @@ public:
 
     // ロボット掃除機の実体宣言
     vector<Roomba> roombas;
+    
+    string scoretime;
+    ofTrueTypeFont scores;
+
+    Rail rail;
 };
 
 #endif /* defined(__gomirhythm__Game__) */

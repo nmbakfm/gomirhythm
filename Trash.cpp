@@ -56,6 +56,8 @@ void Trash::draw(){
     //ゴミの絵の表示
     trashImg.draw(position);
     font.drawString(judgeName, position.x, position.y);
+    
+    
 }
 
 bool Trash::judgeLife(int currentMS)
