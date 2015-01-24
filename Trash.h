@@ -21,11 +21,13 @@ public:
     bool delFlag;
     void draw();
     bool judgeLife(int currentMS);
-    void vacuumed(string judge, int currentMS);
+    void vacuumed(string judge,int currentMS);
     
 private:
     ofImage trashImg;
     int lifeMS;
+    ofTrueTypeFont font;
+    string judgeName;
 };
 
 #endif /* defined(__gomirhythm__Trash__) */

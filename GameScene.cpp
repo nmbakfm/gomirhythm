@@ -19,7 +19,7 @@ GameScene::GameScene(){
     trashes.push_back(Trash(30000, 0, 0, 2));
     roombas.resize(1);
     
-    bgm.loadSound("Mixdown.mp3");
+    bgm.loadSound("stage1/Mixdown.mp3");
     bgm.play();
 }
 

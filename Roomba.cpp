@@ -59,10 +59,10 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
     while(trashIt != trashes.end())
     {
         // Trashes のpos を取得する
-        Trash trashTemp = *trashIt;
-        ofPoint trashPos = trashTemp.position;
+        Trash* trashTemp = &(*trashIt);
+        ofPoint trashPos = trashTemp->position;
         // trash の中心座標を計算する
-        trashPos += (trashTemp.size / 2);
+        trashPos += (trashTemp->size / 2);
         
         // 自分とゴミの距離を計算する
         float distance = sqrt(pow(static_cast<double>(roombaPos.x - trashPos.x), 2.0) +
@@ -78,8 +78,7 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
                 if(ofGetKeyPressed('a'))
                 {
                     // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
-                    trashTemp.vacuumed(areaTemp.name, currentMS);
-//                    trashes.erase(trashIt);
+                    trashTemp->vacuumed(areaTemp.name, currentMS);
                     score += areaTemp.score;
                     break;
                 }
