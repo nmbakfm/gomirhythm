@@ -10,11 +10,11 @@
 #define __gomirhythm__SceneBase__
 
 #include "ofMain.h"
+#include "Constant.h"
 
 class SceneBase {
     
 public:
-    SceneBase(){};
     virtual void update() = 0;
     virtual void draw() = 0;
     
@@ -27,6 +27,13 @@ public:
     virtual void windowResized(int w, int h) = 0;
     virtual void dragEvent(ofDragInfo dragInfo) = 0;
     virtual void gotMessage(ofMessage msg) = 0;
+    
+    SCENE to;
+    bool bChangeScene = false;
+    void change_scene(SCENE _to){
+        to = _to;
+        bChangeScene = true;
+    }
 };
 
 #endif /* defined(__gomirhythm__SceneBase__) */
