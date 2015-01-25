@@ -17,8 +17,7 @@ void ofApp::update(){
     }else{
         if(fade_alpha > 0) fade_alpha -= 5;
     }
-    
-    
+    scene->bgm.setVolume((1-fade_alpha/255)*0.5);
 }
 
 //--------------------------------------------------------------

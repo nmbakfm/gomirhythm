@@ -12,7 +12,6 @@
 #include "SceneBase.h"
 
 class GameOverScene : public SceneBase {
-    ofSoundPlayer bgm;
     ofImage bgImg;
     
 public:
