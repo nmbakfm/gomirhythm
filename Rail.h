@@ -29,6 +29,9 @@ public:
     
     float vel;
     float hue;
+    
+    float current_line_id;
+    float rest_ratio;
 };
 
 #endif /* defined(__gomirhythm__Rail__) */
