@@ -48,7 +48,6 @@ ofPoint Rail::getPosition(int ms, int roomba_id){
     
     float displacement_length = 0;
     float rest;
-    float current_line_id;
     
     // その時間での位置を計算して返す
     for(int i = 0; lengths.size() > i; ++i){
@@ -59,7 +58,7 @@ ofPoint Rail::getPosition(int ms, int roomba_id){
             break;
         }
     }
-    float rest_ratio = rest/lengths[current_line_id];
+    rest_ratio = rest/lengths[current_line_id];
     return rest_ratio * vertices[current_line_id] + (1-rest_ratio) * vertices[current_line_id+1];
 }
 
@@ -74,7 +73,12 @@ void Rail::draw(){
     col.setHsb(hue, 255, 255);
     ofSetColor(col);
     ofSetLineWidth(5);
-    for (vector<ofPoint>::iterator it = vertices.begin(); it != vertices.end()-1; ++it) {
-        ofLine(*it, *(it+1));
+    
+    int expectation = 3;
+    
+    for(int i=current_line_id; i<MIN(current_line_id+expectation, vertices.size()-1); ++i){
+        if(i==current_line_id) ofLine(vertices[i+1], vertices[i] * rest_ratio + vertices[i+1] * (1-rest_ratio));
+        else if (i == current_line_id + expectation - 1) ofLine(vertices[i], vertices[i] * rest_ratio + vertices[i+1] * (1-rest_ratio));
+        else ofLine(vertices[i], vertices[i+1]);
     }
 }
