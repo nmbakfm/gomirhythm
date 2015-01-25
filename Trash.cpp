@@ -33,8 +33,9 @@ Trash::Trash(int msec, int sID, int rID, int tID)
     rail = Rail(sID + 1);
     ofPoint pos = rail.getPosition(msec, rID);
     position.set(pos - (size / 2));
-    
+    delFlag = false;
     lifeMS = msec + lifeMergin;
+    trashMS = msec;
     
     font.loadFont("vag.ttf", 72);
 }
@@ -44,6 +45,7 @@ void Trash::vacuumed(string judge, int currentMS)
     judgeName = judge;
     trashImg.clear();
     lifeMS = currentMS + 500;
+    delFlag = true;
 }
 
 void Trash::draw(){

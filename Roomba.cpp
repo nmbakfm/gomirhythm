@@ -34,6 +34,7 @@ Roomba::Roomba(ofPoint pos, float vel)
     position.set(pos);
     velocity = vel;
     pressKey = false;
+    gasCnt = 0;
     
     // Roomba の画像を読み込む
     roombaImg.loadImage("runba_blue.png");
@@ -45,8 +46,10 @@ Roomba::Roomba(ofPoint pos, float vel)
     vacuumSe.setLoop(false);
 
     // 判定用のエリア設定
-    areas.push_back(JudgeArea("Perfect", 31.0f, 300));
-    areas.push_back(JudgeArea("Good", 63.0f, 200));
+    areas.push_back(JudgeArea("Perfect", 1000.0f, 300));
+    areas.push_back(JudgeArea("Good", 10000.0f, 200));
+//    areas.push_back(JudgeArea("Perfect", 31.0f, 300));
+//    areas.push_back(JudgeArea("Good", 63.0f, 200));
 }
 
 // Roomba の中心座標を計算する
@@ -62,7 +65,7 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
     roombaPos /= 2;
     roombaPos += position;
     
-    float minDistance = 1000.0f;
+    float minDistance = 100000000.0f;
     Trash *minDistTrash;
     
     vector<Trash>::iterator trashIt = trashes.begin();
@@ -70,19 +73,23 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
     {
         // Trashes のpos を取得する
         Trash* trashTemp = &(*trashIt);
-        ofPoint trashPos = trashTemp->position;
-        // trash の中心座標を計算する
-        trashPos += (trashTemp->size / 2);
-        
-        // 自分とゴミの距離を計算する
-        float distance = sqrt(pow(static_cast<double>(roombaPos.x - trashPos.x), 2.0) +
-                              pow(static_cast<double>(roombaPos.y - trashPos.y), 2.0));
-        
+        int trashMsec = trashTemp->trashMS;
+        float distance = pow(currentMS - trashMsec, 2.0);
+
+//        ofPoint trashPos = trashTemp->position;
+//        // trash の中心座標を計算する
+//        trashPos += (trashTemp->size / 2);
+//        
+//        // 自分とゴミの距離を計算する
+//        float distance = sqrt(pow(static_cast<double>(roombaPos.x - trashPos.x), 2.0) +
+//                              pow(static_cast<double>(roombaPos.y - trashPos.y), 2.0));
+//        
         if(distance <= minDistance)
         {
             minDistance = distance;
             minDistTrash = trashTemp;
         }
+
         ++trashIt;
     }
     
@@ -98,10 +105,13 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
                 pressKey = true;
                 if((minDistance <= areaTemp.radius))
                 {
-                    // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
-                    minDistTrash->vacuumed(areaTemp.name, currentMS);
-                    score += areaTemp.score;
-                    vacuumSe.play();
+                    if(!(minDistTrash->delFlag))
+                    {
+                        // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
+                        minDistTrash->vacuumed(areaTemp.name, currentMS);
+                        score += areaTemp.score;
+                        vacuumSe.play();
+                    }
                     break;
                 }
                 else
@@ -127,6 +137,23 @@ void Roomba::update(ofPoint pos)
 {
     // pos を更新する
     position = pos - ofPoint(roombaImg.getWidth()/2, roombaImg.getHeight()/2);
+    if(gasCnt == 0)
+    {
+        gasPos = pos - ofPoint(gasImg.getWidth() / 2, gasImg.getHeight() / 2);
+    }
+    else
+    {
+//        gasPos += ofPoint(0, 5);
+    }
+    
+    if(gasCnt == 50)
+    {
+        gasCnt = 0;
+    }
+    else
+    {
+        ++gasCnt;
+    }
 //    position = pos;
 }
     
@@ -145,13 +172,15 @@ void Roomba::draw(int state)
             break;
             
         case NG:
+            ofSetColor(255, 255, 255, 255 - (gasCnt * 5));
+            gasImg.draw(gasPos);
+            
             ofSetColor(255, 0, 0, alpha);
             alpha += 50.0f;
             if(alpha > 255)
             {
                 alpha = 0.0f;
             }
-            gasImg.draw(position);
             break;
             
         default:

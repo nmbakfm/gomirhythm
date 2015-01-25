@@ -23,6 +23,7 @@ public:
     void draw();
     bool judgeLife(int currentMS);
     void vacuumed(string judge,int currentMS);
+    int trashMS;
     
 private:
     ofImage trashImg;

@@ -32,6 +32,8 @@ public:
 private:
     ofImage roombaImg;
     ofImage gasImg;
+    ofPoint gasPos;
+    int gasCnt;
     ofSoundPlayer vacuumSe;
     float radius;
     float deg;
