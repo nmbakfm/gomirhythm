@@ -31,6 +31,8 @@ public:
     
 private:
     ofImage roombaImg;
+    ofImage gasImg;
+    ofSoundPlayer vacuumSe;
     float radius;
     float deg;
 };

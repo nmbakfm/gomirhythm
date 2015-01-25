@@ -38,8 +38,11 @@ Roomba::Roomba(ofPoint pos, float vel)
     // Roomba の画像を読み込む
     roombaImg.loadImage("runba_blue.png");
     roombaImg.setAnchorPercent(0.5, 0.5);
+    
+    gasImg.loadImage("kemuri.png");
 
-    vacuum.loadSound("stage1/stage1.mp3");
+    vacuumSe.loadSound("vacuum.mp3");
+    vacuumSe.setLoop(false);
 
     // 判定用のエリア設定
     areas.push_back(JudgeArea("Perfect", 31.0f, 300));
@@ -98,6 +101,7 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
                     // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
                     minDistTrash->vacuumed(areaTemp.name, currentMS);
                     score += areaTemp.score;
+                    vacuumSe.play();
                     break;
                 }
                 else
@@ -147,6 +151,7 @@ void Roomba::draw(int state)
             {
                 alpha = 0.0f;
             }
+            gasImg.draw(position);
             break;
             
         default:
