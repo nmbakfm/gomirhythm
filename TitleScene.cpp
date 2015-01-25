@@ -12,6 +12,7 @@
 TitleScene::TitleScene(){
     bgImg.loadImage("title.png");
     start.loadSound("start.mp3");
+    start.setVolume(0.4);
     
     bgm.loadSound("title.mp3");
     bgm.setLoop(true);

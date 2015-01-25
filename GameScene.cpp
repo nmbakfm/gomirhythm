@@ -28,7 +28,6 @@ GameScene::GameScene(){
     
     bgImg.loadImage("stage1/background.png");
     bgm.loadSound("stage1/stage1.mp3");
-    bgm.play();
     
     numOfTrash = 0;
     // MusicScore からtrash の数に応じたscore のしきい値テーブルを作成する
@@ -43,6 +42,12 @@ GameScene::GameScene(){
 
 //--------------------------------------------------------------
 void GameScene::update(){
+    if(!bFadeInCompleted) return;
+    
+    if (!bBgmPlay) {
+        bgm.play();
+        bBgmPlay = true;
+    }
     
     if(state == STAGE_CLEAR)
     {
@@ -51,19 +56,12 @@ void GameScene::update(){
     else if(state == GAME_OVER)
     {
         gameoverFlag = true;
-        // 背景を吸い込む
-        //bgImg(w, h);
         w -= 20;
-//        h -= 20;
         if(w < 0)
         {
             change_scene(TITLE_SCENE);
             w = 0;
         }
-//        if(h < 0)
-//        {
-//            h = 0;
-//        }
     }
     else
     {

@@ -12,10 +12,14 @@ void ofApp::update(){
     scene -> update();
     
     if(scene -> bChangeScene){
-        if(fade_alpha < 255) fade_alpha += 5;
+        if(fade_alpha < 255) fade_alpha += 3;
         else nextScene(scene -> to);
     }else{
-        if(fade_alpha > 0) fade_alpha -= 5;
+        if(fade_alpha > 0){
+            fade_alpha -= 3;
+        }else{
+            scene->bFadeInCompleted = true;
+        }
     }
     scene->bgm.setVolume((1-fade_alpha/255)*0.5);
 }
