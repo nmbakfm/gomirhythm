@@ -30,6 +30,7 @@ public:
     virtual void dragEvent(ofDragInfo dragInfo) = 0;
     virtual void gotMessage(ofMessage msg) = 0;
     
+    bool bFadeInCompleted = false;
     SCENE to;
     bool bChangeScene = false;
     void change_scene(SCENE _to){

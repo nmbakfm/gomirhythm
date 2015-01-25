@@ -24,6 +24,7 @@ class GameScene : public SceneBase {
     int numOfTrash;
     int state;
     ofImage bgImg;
+    bool bBgmPlay = false;
     
 public:
     GameScene();
