@@ -17,6 +17,7 @@ class Rail {
 public:
     Rail(){};
     Rail(int stage_id);
+    void update();
     void draw();
     ofPoint getPosition(int msec, int roomba_id);
     
@@ -27,6 +28,7 @@ public:
     float all_length;
     
     float vel;
+    float hue;
 };
 
 #endif /* defined(__gomirhythm__Rail__) */
