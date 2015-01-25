@@ -70,10 +70,10 @@ void GameScene::update(){
     
         int bgmPosMS = bgm.getPositionMS();
     
-        // 加速度を与えてRoomba を更新する
+        // Roomba の座標を更新する
         for(int i = 0; i < roombas.size(); ++i)
         {
-            roombas[i].update(accel);
+            roombas[i].update(rail.getPosition(bgmPosMS, i));
             score += roombas[i].vacuum(trashes, bgmPosMS);
         }
         // 現在のスコアを判定してRoomba の状態を変更する
@@ -156,7 +156,7 @@ void GameScene::draw(){
     // Roomba を描画する
     for(int i = 0; i < roombas.size(); ++i)
     {
-        roombas[i].draw(rail.getPosition(bgm.getPositionMS(), i), state);
+        roombas[i].draw(state);
     }
     rail.draw();
     

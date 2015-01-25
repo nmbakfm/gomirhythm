@@ -41,7 +41,7 @@ void Trash::vacuumed(string judge, int currentMS)
 {
     judgeName = judge;
     trashImg.clear();
-    lifeMS = currentMS + 1000;
+    lifeMS = currentMS + 500;
 }
 
 void Trash::draw(){
