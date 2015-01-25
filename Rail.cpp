@@ -65,8 +65,17 @@ ofPoint Rail::getPosition(int ms, int roomba_id){
     return rest_ratio * vertices[current_line_id] + (1-rest_ratio) * vertices[current_line_id+1];
 }
 
+void Rail::update(){
+    hue ++;
+    if(hue > 255) hue = 0;
+}
+
 void Rail::draw(){
     // 移動する軌跡を表示
+    ofColor col;
+    col.setHsb(hue, 255, 255);
+    ofSetColor(col);
+    ofSetLineWidth(5);
     for (vector<ofPoint>::iterator it = vertices.begin(); it != vertices.end()-1; ++it) {
         ofLine(*it, *(it+1));
     }

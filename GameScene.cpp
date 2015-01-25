@@ -121,10 +121,13 @@ void GameScene::update(){
             }
         }
     }
+    
+    rail.update();
 }
 
 //--------------------------------------------------------------
 void GameScene::draw(){
+    ofSetColor(255);
     bgImg.draw(0, 0);
     
     for(int i= 0;i < trashes.size();i++)
@@ -140,6 +143,7 @@ void GameScene::draw(){
     }
     rail.draw();
     
+    ofSetColor(255);
     scores.drawString(ofToString(score), 400, 80);
 }
 
