@@ -12,7 +12,6 @@
 #include "SceneBase.h"
 
 class TitleScene : public SceneBase {
-    ofSoundPlayer bgm;
     ofSoundPlayer start;
     ofImage bgImg;
     

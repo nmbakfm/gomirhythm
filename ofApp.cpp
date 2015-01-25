@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0);
-    scene = new GameScene();
+    scene = new TitleScene();
     fade_alpha = 255;
 }
 
@@ -17,8 +17,7 @@ void ofApp::update(){
     }else{
         if(fade_alpha > 0) fade_alpha -= 5;
     }
-    
-    
+    scene->bgm.setVolume((1-fade_alpha/255)*0.5);
 }
 
 //--------------------------------------------------------------

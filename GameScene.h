@@ -23,7 +23,6 @@ class GameScene : public SceneBase {
     vector<int> NGScores;
     int numOfTrash;
     int state;
-    ofSoundPlayer bgm;
     ofImage bgImg;
     
 public:
