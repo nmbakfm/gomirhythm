@@ -57,6 +57,7 @@ public:
     int w;
     int h;
     bool clearflag = false;
+    bool gameoverFlag = false;
 };
 
 #endif /* defined(__gomirhythm__Game__) */

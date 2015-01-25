@@ -32,8 +32,6 @@ private:
     ofImage roombaImg;
     float radius;
     float deg;
-    
-    bool pressKey;
 };
 
 // ステージの状態

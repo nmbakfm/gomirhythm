@@ -44,25 +44,26 @@ GameScene::GameScene(){
 //--------------------------------------------------------------
 void GameScene::update(){
     
-    if(state == GAME_OVER)
+    if(state == STAGE_CLEAR)
     {
         clearflag = true;
     }
-    else if(state == STAGE_CLEAR)
+    else if(state == GAME_OVER)
     {
+        gameoverFlag = true;
         // 背景を吸い込む
         //bgImg(w, h);
         w -= 20;
-        h -= 20;
+//        h -= 20;
         if(w < 0)
         {
             change_scene(TITLE_SCENE);
             w = 0;
         }
-        if(h < 0)
-        {
-            h = 0;
-        }
+//        if(h < 0)
+//        {
+//            h = 0;
+//        }
     }
     else
     {
@@ -166,8 +167,14 @@ void GameScene::draw(){
     {
         ofSetColor(255, 0, 0);
         scores.drawString("CONGRATULATION!!", 100, 300);
+        clearflag = false;
+        change_scene(TITLE_SCENE);
     }
-    clearflag = false;
+    else if(gameoverFlag)
+    {
+        scores.drawString("GAME OVER...", 100, 300);
+        gameoverFlag = false;
+    }
 }
 
 

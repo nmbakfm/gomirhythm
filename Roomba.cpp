@@ -90,6 +90,7 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
         {
             if(!pressKey)
             {
+                pressKey = true;
                 if((minDistance <= areaTemp.radius))
                 {
                     // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
@@ -103,7 +104,6 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
                     score -= 100;
                 }
             }
-            pressKey = true;
         }
         else
         {

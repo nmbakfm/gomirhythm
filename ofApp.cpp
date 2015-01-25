@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0);
-    scene = new GameScene();
+    scene = new TitleScene();
     fade_alpha = 255;
 }
 
