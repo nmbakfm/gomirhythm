@@ -33,14 +33,15 @@ Roomba::Roomba(ofPoint pos, float vel)
     // メンバ変数の初期化をする
     position.set(pos);
     velocity = vel;
+    pressKey = false;
     
     // Roomba の画像を読み込む
     roombaImg.loadImage("runba_blue.png");
     roombaImg.setAnchorPercent(0.5, 0.5);
     
     // 判定用のエリア設定
-    areas.push_back(JudgeArea("Perfect", 20.0f, 300));
-    areas.push_back(JudgeArea("Good", 50.0f, 200));
+    areas.push_back(JudgeArea("Perfect", 100.0f, 300));
+    areas.push_back(JudgeArea("Good", 200.0f, 200));
 }
 
 // Roomba の中心座標を計算する
@@ -74,15 +75,29 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
         while(areaIt != areas.end())
         {
             JudgeArea areaTemp = *areaIt;
-            if((distance <= areaTemp.radius))
+            if(ofGetKeyPressed('a'))
             {
-                if(ofGetKeyPressed('a'))
+                if(!pressKey)
                 {
-                    // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
-                    trashTemp->vacuumed(areaTemp.name, currentMS);
-                    score += areaTemp.score;
-                    break;
+                    if((distance <= areaTemp.radius))
+                    {
+                        // 座標が一致してキー入力をしていたら、trash を削除してスコアを加算する
+                        trashTemp->vacuumed(areaTemp.name, currentMS);
+                        score += areaTemp.score;
+                        break;
+                    }
+                    else
+                    {
+                        // 座標が一致していないのにキー入力をしていたら、スコアを減算する
+                        score -= 100;
+                    }
                 }
+                pressKey = true;
+            }
+            else
+            {
+                // チャタリング防止
+                pressKey = false;
             }
             ++areaIt;
         }

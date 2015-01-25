@@ -15,6 +15,7 @@ GameScene::GameScene(){
     w = 1024;
     h = 768;
     score = 0;
+    state = OK;
     
     // MusicScore.xml から時間、ルンバID、ゴミの種類を読み込む
     musicScore = MusicScore(1);
@@ -22,12 +23,7 @@ GameScene::GameScene(){
     // getPosition で座標を取得する。
     rail = Rail(1);
     ofPoint roombaInitialPos = rail.getPosition(0, 0);
-/*    ofPoint trashPos = rail.getPosition(musicScore.MSs[i], musicScore.rIDs[i]);
-    trashes.push_back(Trash(10000, 0, 0, 0));
-    trashPos = ofPoint(256, 256);
-    trashes.push_back(Trash(20000, 0, 0, 1));
-    trashPos = ofPoint(384, 384);
-    trashes.push_back(Trash(30000, 0, 0, 2));*/
+    
     roombas.push_back(Roomba(roombaInitialPos, rail.vel));
     
     bgImg.loadImage("stage1/background.png");
@@ -41,8 +37,6 @@ GameScene::GameScene(){
         NGScores.push_back(75 * i);
         warnScores.push_back(150 * i);
     }
-    // 最初のゴミを配置する
-    trashes.push_back(Trash(musicScore.MSs[numOfTrash], 0, musicScore.rIDs[numOfTrash], musicScore.tIDs[numOfTrash]));
 
     scores.loadFont("vag.ttf", 72);
 }
@@ -110,27 +104,6 @@ void GameScene::update(){
             {
                 // ゴミを消す
                 trashes.erase(trashIt);
-            
-                // 次のゴミを置く
-                if(numOfTrash < musicScore.MSs.size() - 1)
-                {
-                    ++numOfTrash;
-                    trashes.push_back(Trash(musicScore.MSs[numOfTrash], 0, musicScore.rIDs[numOfTrash], musicScore.tIDs[numOfTrash]));
-                }
-                else
-                {
-                    // 終了 ステージクリアかゲームオーバーの処理をする
-                    if(score < NGScores[numOfTrash])
-                    {
-                        // ゲームオーバー
-                        state = GAME_OVER;
-                    }
-                    else
-                    {
-                        // ステージクリア
-                        state = STAGE_CLEAR;
-                    }
-                }
             }
         
             if(trashIt != trashes.end())
@@ -138,7 +111,36 @@ void GameScene::update(){
                 ++trashIt;
             }
         }
+        
+        // 次のゴミを置く
+        if(numOfTrash < musicScore.MSs.size() - 1)
+        {
+            if(bgmPosMS > musicScore.appearMSs[numOfTrash])
+            {
+                trashes.push_back(Trash(musicScore.MSs[numOfTrash], 0, musicScore.rIDs[numOfTrash], musicScore.tIDs[numOfTrash]));
+                ++numOfTrash;
+            }
+        }
+        else if(trashes.size() == 0)
+        {
+            // 終了 ステージクリアかゲームオーバーの処理をする
+            if(score < NGScores[numOfTrash])
+            {
+                // ゲームオーバー
+                state = GAME_OVER;
+            }
+            else
+            {
+                // ステージクリア
+                state = STAGE_CLEAR;
+            }
+        }
+        else
+        {
+        }
     }
+    
+    rail.update();
 }
 
 //--------------------------------------------------------------
@@ -158,6 +160,7 @@ void GameScene::draw(){
     }
     rail.draw();
     
+    ofSetColor(255);
     scores.drawString(ofToString(score), 400, 80);
     if(clearflag == true)
     {

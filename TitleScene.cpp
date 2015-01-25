@@ -11,6 +11,7 @@
 //--------------------------------------------------------------
 TitleScene::TitleScene(){
     bgImg.loadImage("title.png");
+    start.loadSound("start.mp3");
 }
 
 //--------------------------------------------------------------
@@ -30,6 +31,7 @@ void TitleScene::keyPressed(int key){
 
 //--------------------------------------------------------------
 void TitleScene::keyReleased(int key){
+    start.play();
     change_scene(GAME_SCENE);
 }
 
