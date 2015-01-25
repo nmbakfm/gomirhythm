@@ -42,10 +42,13 @@ GameScene::GameScene(){
 
 //--------------------------------------------------------------
 void GameScene::update(){
-    for(int i = 0; i < roombas.size(); ++i)
-    {
-        roombas[i].update(rail.getPosition(0, i));
+    if(!bBgmPlay){
+        for(int i = 0; i < roombas.size(); ++i)
+        {
+            roombas[i].update(rail.getPosition(0, i));
+        }
     }
+
     if(!bFadeInCompleted) return;
     
     if (!bBgmPlay) {
