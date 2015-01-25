@@ -10,11 +10,11 @@
 #include "Rail.h"
 
 //-----------------------------------------------------
-string ImageNames[1][3][3] =
+string ImageNames[1][3][6] =
 {
     {
         // Stage 1
-        {"stage1/snack.png", "stage1/kan_green.png", "stage1/book.png"},    // Roomba 1
+        {"stage1/book.png", "stage1/denti.png", "stage1/game_character.png", "stage1/irui.png", "stage1/men.png", "stage1/snack.png"},    // Roomba 1
         {"", "", ""},    // Roomba 2
         {"", "", ""}    // Roomba 3
     }
@@ -28,7 +28,6 @@ Trash::Trash(int msec, int sID, int rID, int tID)
     trashImg.loadImage(imageName);
     size.set(trashImg.width, trashImg.height);
     
-    // 仮の処理 最終的にはRail.getPosition を使う
     rail = Rail(sID + 1);
     ofPoint pos = rail.getPosition(msec, rID);
     position.set(pos - (size / 2));

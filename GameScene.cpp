@@ -109,7 +109,7 @@ void GameScene::update(){
                 ++numOfTrash;
             }
         }
-        else
+        else if(trashes.size() == 0)
         {
             // 終了 ステージクリアかゲームオーバーの処理をする
             if(score < NGScores[numOfTrash])
@@ -122,6 +122,9 @@ void GameScene::update(){
                 // ステージクリア
                 state = STAGE_CLEAR;
             }
+        }
+        else
+        {
         }
     }
 }

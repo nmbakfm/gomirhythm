@@ -30,6 +30,7 @@ public:
 private:
     ofImage roombaImg;
     float radius;
+    bool pressKey;
 };
 
 // ステージの状態

@@ -32,7 +32,7 @@ Rail::Rail(int stage_id){
         all_length += current_line_length;
         lengths.push_back(current_line_length);
     }
-    vel = 0.1;
+    vel = 0.2;
 }
 
 ofPoint Rail::getPosition(int ms, int roomba_id){
