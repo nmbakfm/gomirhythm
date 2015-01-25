@@ -113,19 +113,16 @@ void Roomba::draw(ofPoint pos, int state)
     {
         case WARN:
             // 点滅表示させる
-            ofSetColor(128);
-//            roombaImg.setColor(128);
+//            ofSetColor(128);
             roombaImg.draw(position);
             break;
         case NG:
             // 煙を出す
-            ofSetColor(0);
-//            roombaImg.setColor(255);
+//            ofSetColor(0);
             roombaImg.draw(position);
             break;
         default:
-            ofSetColor(255);
-//            roombaImg.setColor(0);
+//            ofSetColor(255);
             roombaImg.draw(position);
             break;
     }
