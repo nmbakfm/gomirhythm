@@ -23,7 +23,6 @@ public:
     float velocity;    // 速度
     bool pressKey;
     float alpha;
-    float deltaAlpha;
     
     Roomba(ofPoint pos, float vel);         // コンストラクタ
     int vacuum(vector<Trash> &trashes, int currentMS);    // ゴミを吸い取る

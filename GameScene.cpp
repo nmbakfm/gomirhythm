@@ -34,8 +34,16 @@ GameScene::GameScene(){
     // MusicScore からtrash の数に応じたscore のしきい値テーブルを作成する
     for(int i = 0; i < musicScore.MSs.size(); ++i)
     {
-        NGScores.push_back(75 * i);
-        warnScores.push_back(150 * i);
+        if(i < 5)
+        {
+            NGScores.push_back(0);
+            warnScores.push_back(0);
+        }
+        else
+        {
+            NGScores.push_back(75 * i);
+            warnScores.push_back(150 * i);
+        }
     }
 
     scores.loadFont("vag.ttf", 72);

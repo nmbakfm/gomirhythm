@@ -38,10 +38,12 @@ Roomba::Roomba(ofPoint pos, float vel)
     // Roomba の画像を読み込む
     roombaImg.loadImage("runba_blue.png");
     roombaImg.setAnchorPercent(0.5, 0.5);
-    
+
+    vacuum.loadSound("stage1/stage1.mp3");
+
     // 判定用のエリア設定
-    areas.push_back(JudgeArea("Perfect", 63.0f, 300));
-    areas.push_back(JudgeArea("Good", 127.0f, 200));
+    areas.push_back(JudgeArea("Perfect", 31.0f, 300));
+    areas.push_back(JudgeArea("Good", 63.0f, 200));
 }
 
 // Roomba の中心座標を計算する
@@ -113,7 +115,6 @@ int Roomba::vacuum(vector<Trash> &trashes, int currentMS)
         ++areaIt;
     }
     
-    //scorefont.drawString("Score",400,80);
     return score;
 }
 
@@ -131,14 +132,21 @@ void Roomba::draw(int state)
     switch(state)
     {
         case WARN:
-            if(state ==)
+            ofSetColor(255, 127, 127, alpha);
+            alpha += 25.0f;
+            if(alpha > 255)
             {
-                
-                ofSetColor(255, 0, 0, alpha);
+                alpha = 0.0f;
             }
             break;
             
         case NG:
+            ofSetColor(255, 0, 0, alpha);
+            alpha += 50.0f;
+            if(alpha > 255)
+            {
+                alpha = 0.0f;
+            }
             break;
             
         default:
