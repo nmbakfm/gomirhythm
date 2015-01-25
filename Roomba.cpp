@@ -128,6 +128,22 @@ void Roomba::update(ofPoint pos)
 // ロボット掃除機を描画する
 void Roomba::draw(int state)
 {
+    switch(state)
+    {
+        case WARN:
+            if(state ==)
+            {
+                
+                ofSetColor(255, 0, 0, alpha);
+            }
+            break;
+            
+        case NG:
+            break;
+            
+        default:
+            break;
+    }
     //ofRect(roombaPos, width, height);
     // pos の位置にロボット掃除機を描画する
     roombaImg.draw(position);
