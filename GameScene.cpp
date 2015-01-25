@@ -7,9 +7,13 @@
 //
 
 #include "GameScene.h"
+#include "ofApp.h"
+#include "GameOver.h"
 
 //--------------------------------------------------------------
 GameScene::GameScene(){
+    w = 1024;
+    h = 768;
     score = 0;
     state = OK;
     
@@ -39,13 +43,26 @@ GameScene::GameScene(){
 
 //--------------------------------------------------------------
 void GameScene::update(){
-    if(state == STAGE_CLEAR)
+    
+    if(state == GAME_OVER)
     {
-        
+        clearflag = true;
     }
-    else if(state == GAME_OVER)
+    else if(state == STAGE_CLEAR)
     {
         // 背景を吸い込む
+        //bgImg(w, h);
+        w -= 20;
+        h -= 20;
+        if(w < 0)
+        {
+            change_scene(TITLE_SCENE);
+            w = 0;
+        }
+        if(h < 0)
+        {
+            h = 0;
+        }
     }
     else
     {
@@ -128,8 +145,7 @@ void GameScene::update(){
 
 //--------------------------------------------------------------
 void GameScene::draw(){
-    ofSetColor(255);
-    bgImg.draw(0, 0);
+    bgImg.draw(rail.getPosition(bgm.getPositionMS(), 0).x * (1 - w / 1024.), rail.getPosition(bgm.getPositionMS(), 0).y * (1 - h / 768.), w, w*3/4);
     
     for(int i= 0;i < trashes.size();i++)
     {
@@ -146,8 +162,13 @@ void GameScene::draw(){
     
     ofSetColor(255);
     scores.drawString(ofToString(score), 400, 80);
+    if(clearflag == true)
+    {
+        ofSetColor(255, 0, 0);
+        scores.drawString("CONGRATULATION!!", 100, 300);
+    }
+    clearflag = false;
 }
-
 
 
 //--------------------------------------------------------------
