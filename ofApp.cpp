@@ -12,11 +12,11 @@ void ofApp::update(){
     scene -> update();
     
     if(scene -> bChangeScene){
-        if(fade_alpha < 255) fade_alpha += 3;
+        if(fade_alpha < 255) fade_alpha += 2;
         else nextScene(scene -> to);
     }else{
         if(fade_alpha > 0){
-            fade_alpha -= 3;
+            fade_alpha -= 2;
         }else{
             scene->bFadeInCompleted = true;
         }
