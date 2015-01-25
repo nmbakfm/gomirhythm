@@ -13,6 +13,7 @@ typedef enum {
     GAME_SCENE,
     TITLE_SCENE,
     RESULT_SCENE,
+    GAME_OVER_SCENE,
 } SCENE;
 
 #endif /* defined(__gomirhythm__Constant__) */

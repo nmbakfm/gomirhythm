@@ -53,6 +53,9 @@ public:
     Rail rail;
     
     MusicScore musicScore;
+    
+    int w;
+    int h;
 };
 
 #endif /* defined(__gomirhythm__Game__) */

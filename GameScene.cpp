@@ -7,9 +7,13 @@
 //
 
 #include "GameScene.h"
+#include "ofApp.h"
+#include "GameOver.h"
 
 //--------------------------------------------------------------
 GameScene::GameScene(){
+    w = 1024;
+    h = 768;
     score = 0;
     
     // MusicScore.xml から時間、ルンバID、ゴミの種類を読み込む
@@ -45,6 +49,7 @@ GameScene::GameScene(){
 
 //--------------------------------------------------------------
 void GameScene::update(){
+    
     if(state == STAGE_CLEAR)
     {
         
@@ -52,9 +57,17 @@ void GameScene::update(){
     else if(state == GAME_OVER)
     {
         // 背景を吸い込む
-        for(int i = 0; i < 20; ++i)
+        //bgImg(w, h);
+        w -= 20;
+        h -= 20;
+        if(w < 0)
         {
-            bgImg.rotate90(i);
+            change_scene(TITLE_SCENE);
+            w = 0;
+        }
+        if(h < 0)
+        {
+            h = 0;
         }
     }
     else
@@ -130,7 +143,7 @@ void GameScene::update(){
 
 //--------------------------------------------------------------
 void GameScene::draw(){
-    bgImg.draw(0, 0);
+    bgImg.draw(rail.getPosition(bgm.getPositionMS(), 0).x * (1 - w / 1024.), rail.getPosition(bgm.getPositionMS(), 0).y * (1 - h / 768.), w, w*3/4);
     
     for(int i= 0;i < trashes.size();i++)
     {

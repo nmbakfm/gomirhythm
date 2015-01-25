@@ -6,6 +6,7 @@
 #include "TitleScene.h"
 #include "GameScene.h"
 #include "Trash.h"
+#include "GameOver.h"
 
 class ofApp : public ofBaseApp{
 

@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofBackground(0);
-    scene = new TitleScene();
+    scene = new GameScene();
     fade_alpha = 255;
 }
 
@@ -83,6 +83,8 @@ void ofApp::nextScene(SCENE to){
         case TITLE_SCENE:
             scene = new TitleScene();
             break;
+        case GAME_OVER_SCENE:
+            scene = new GameOverScene();
         default:
             break;
     }

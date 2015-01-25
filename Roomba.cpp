@@ -37,7 +37,6 @@ Roomba::Roomba(ofPoint pos, float vel)
     // Roomba の画像を読み込む
     roombaImg.loadImage("runba_blue.png");
     roombaImg.setAnchorPercent(0.5, 0.5);
-    deg = 0.0;
     
     // 判定用のエリア設定
     areas.push_back(JudgeArea("Perfect", 20.0f, 300));
@@ -104,17 +103,13 @@ void Roomba::update(ofPoint accel)
     // pos とvel を更新する
     //pos += vel;
     //vel += accel;
-    deg += 10;
 }
     
 // ロボット掃除機を描画する
 void Roomba::draw(ofPoint pos, int state)
 {
-    ofPushMatrix();
-    ofRotate(deg);
     //ofRect(roombaPos, width, height);
     // pos の位置にロボット掃除機を描画する
-    roombaImg.draw(pos);
+    roombaImg.draw(pos-ofPoint(roombaImg.getWidth()/2, roombaImg.getHeight()/2));
 //    ofCircle(384, 384, areas[1].radius);
-    ofPopMatrix();
 }
