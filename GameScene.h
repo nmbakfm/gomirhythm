@@ -56,6 +56,7 @@ public:
     
     int w;
     int h;
+    bool clearflag = false;
 };
 
 #endif /* defined(__gomirhythm__Game__) */

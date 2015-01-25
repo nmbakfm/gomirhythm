@@ -50,11 +50,11 @@ GameScene::GameScene(){
 //--------------------------------------------------------------
 void GameScene::update(){
     
-    if(state == STAGE_CLEAR)
+    if(state == GAME_OVER)
     {
-        
+        clearflag = true;
     }
-    else if(state == GAME_OVER)
+    else if(state == STAGE_CLEAR)
     {
         // 背景を吸い込む
         //bgImg(w, h);
@@ -159,8 +159,13 @@ void GameScene::draw(){
     rail.draw();
     
     scores.drawString(ofToString(score), 400, 80);
+    if(clearflag == true)
+    {
+        ofSetColor(255, 0, 0);
+        scores.drawString("CONGRATULATION!!", 100, 300);
+    }
+    clearflag = false;
 }
-
 
 
 //--------------------------------------------------------------
